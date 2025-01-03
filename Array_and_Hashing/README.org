@@ -1,0 +1,24 @@
+* Array and Hashing
+
+** Group Anagrams
+
+Anagrams are strings with the same frequency of characters
+
+For example,
+/pots/, and /stop/ are anagrams since:
+
+| char | frequency |
+|------+-----------|
+| p    |         1 |
+| o    |         1 |
+| t    |         1 |
+| s    |         1 |
+
+
+We can use that definition to solve the problem. The key 
+
+*** Sorting and Hashing
+- Create a dictionary where the key is the sorted string and a value of a list of strings
+- Loop through each string
+- 
+
