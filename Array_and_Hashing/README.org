@@ -87,3 +87,11 @@ class Solution:
 
 My intuition tells me I have to use a dictionary to get count the number of elements.
 I loop ~k~ times where I get the key with the maximum value, append it to an array and delete the key, similar to a max queue but slower.
+
+I had to share this Python one-liner I found in the leetcode solutions discussion because it made me laugh
+#+begin_src python
+  class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        return [x for x, y in collections.Counter(nums).most_common(k)]
+#+end_src
+
