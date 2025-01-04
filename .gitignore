@@ -1,0 +1,5 @@
+# Org export and stuff idc about
+*.pdf
+*.html
+*.tex
+ltximg/
