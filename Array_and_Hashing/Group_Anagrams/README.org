@@ -1,0 +1,62 @@
+* Group Anagrams
+
+Anagrams are strings with the same frequency of characters
+
+For example,
+/pots/, and /stop/ are anagrams since:
+
+| char | frequency |
+|------+-----------|
+| p    |         1 |
+| o    |         1 |
+| t    |         1 |
+| s    |         1 |
+
+
+We can use that definition to solve the problem. The key 
+
+** Sorting and Hashing
+Create a dictionary where the key is the sorted string and a value of a list of strings
+
+#+begin_src python
+  groups = defaultdict(list)
+#+end_src
+
+~defaultdict(list)~ prevents Python from complaining about a non-existent key. This also sets our value type to ~list~
+
+Loop through each string and sort it
+
+#+begin_src python
+  for s in strs:
+      sorted_str = ''.join(sorted(s))
+#+end_src
+
+We do ~''.join(sorted(s))~ since ~sorted(s)~ returns an array of characters of the sorted string and we want a string
+
+We store the strings that have a sorted value in our dictionary, which may or may not correspond to a key in our dictionary.
+
+#+begin_src python
+              groups[sorted_str].append(s)
+        return list(groups.values())
+#+end_src
+
+** Full Code
+
+#+begin_src python :results output
+from collections import defaultdict
+from typing import Counter, List
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        groups = defaultdict(list)
+        for s in strs:
+            sorted_str = ''.join(sorted(s))
+            groups[sorted_str].append(s)
+        return list(groups.values())
+            
+print(Solution().groupAnagrams(strs=["act","pots","tops","cat","stop","hat"]))
+
+#+end_src
+
+#+RESULTS:
+: [['act', 'cat'], ['pots', 'tops', 'stop'], ['hat']]
+

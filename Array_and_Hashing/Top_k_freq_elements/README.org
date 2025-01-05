@@ -1,0 +1,68 @@
+* Top K Frequent Elements
+
+#+begin_quote
+I was able to solve this issue without looking up the solution but it was slow, with a runtime of $O(N \cdot K)$ but I'll include my naive attempt anyway
+#+end_quote
+
+** Naive attempt
+
+#+begin_src python
+from typing import Counter, List
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        myHash = Counter(nums)
+        myRes = []
+        max_freq = 0
+        for i in range(k):
+            max_freq = max(myHash, key=myHash.get)
+            myRes.append(max_freq)
+            del myHash[max_freq]
+            print(myHash)
+        return myRes  
+#+end_src
+
+My intuition tells me I have to use a dictionary to get count the number of elements.
+I loop ~k~ times where I get the key with the maximum value, append it to an array and delete the key, similar to a max queue but slower.
+
+I had to share this Python one-liner I found in the leetcode solutions discussion because it made me laugh
+
+#+begin_src python
+  class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        return [x for x, y in collections.Counter(nums).most_common(k)]
+#+end_src
+
+** Heap 
+
+Just $O(1)$ for these cases
+#+begin_src python
+  if len(nums) == k:
+   return nums
+#+end_src
+
+Create a dictionary to store the value and its frequency
+
+Python's ~heapq~ module has the ~nlargest~ to cut out the work that we have to do
+- Passing ~myHash.get~ to ~nlargest~ key arg applies the heap property on the dictionary keys based on its respective value
+
+#+begin_src python
+  myHash = Counter(nums)
+  return hq.nlargest(k, myHash.keys(), key = myHash.get)
+#+end_src
+
+
+*** Full Code
+#+begin_src python
+from typing import Counter, List
+import heapq as hq
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        if len(nums) == k:
+           return nums
+        myHash = Counter(nums)
+        return hq.nlargest(k, myHash.keys(), key = myHash.get)
+        
+print(Solution().topKFrequent([1,1,1,2,2,3], k = 2))
+
+#+end_src
+
